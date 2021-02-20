@@ -22,31 +22,30 @@ def get_games(content):
     return games
 
 
-def get_attribute(tag, attribute):
-    """Returns specified attribute value from within an HTML tag"""
-    attr = tag[attribute]
-    return attr
-
-
 class Game:
     """Class containing data for an individual game"""
 
     def __init__(self, data):
         self.data = data
+        self.home_team = None
+        self.away_team = None
         self.home_team_tricode = None
+        self.home_team_name = None
         self.away_team_tricode = None
+        self.away_team_name = None
 
-    def get_teams(self):
-        """Extract team level data"""
-        self.home_team_tricode = get_attribute(
-            self.data.select(".starting-lineups__team-names .starting-lineups__team-name--home")[
-                0
-            ].a,
-            "data-tri-code",
-        )
-        self.away_team_tricode = get_attribute(
-            self.data.select(".starting-lineups__team-names .starting-lineups__team-name--away")[
-                0
-            ].a,
-            "data-tri-code",
-        )
+    def set_team_blocks(self):
+        """Extract code blocks for home and away teams"""
+        teams = self.data.select(".starting-lineups__team-names")[0]
+        self.home_team = teams.select(".starting-lineups__team-name--home")[0]
+        self.away_team = teams.select(".starting-lineups__team-name--away")[0]
+
+    def set_team_tricodes(self):
+        """Set team tri-codes"""
+        self.home_team_tricode = self.home_team.a["data-tri-code"]
+        self.away_team_tricode = self.away_team.a["data-tri-code"]
+
+    def set_team_names(self):
+        """Set team names"""
+        self.home_team_name = self.home_team.a.get_text().strip()
+        self.away_team_name = self.away_team.a.get_text().strip()
