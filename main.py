@@ -49,3 +49,10 @@ class Game:
         """Set team names"""
         self.home_team_name = self.home_team.a.get_text().strip()
         self.away_team_name = self.away_team.a.get_text().strip()
+
+
+class Team:
+    """Class containing data for an individual team"""
+
+    def __init__(self, data):
+        self.data = data
