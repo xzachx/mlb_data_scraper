@@ -61,8 +61,9 @@ class Team:
         return self.team_tricode
 
     def get_pitcher(self):
-        # TODO: Define get_pitcher() method
-        pass
+        self.pitcher = Pitcher(
+            self.team_block.select(".starting-lineups__pitchers")[0], self.home_team
+        )
 
     def get_batters(self):
         # TODO: Define get_batters() method
@@ -72,25 +73,40 @@ class Team:
 class Pitcher:
     """Class containing starting pitcher data"""
 
-    def __init__(self, pitcher_block):
+    def __init__(self, pitcher_block, home_team: bool):
         self.pitcher_block = pitcher_block
+        self.home_team = home_team
         self.player_name = None
         self.player_id = None
         self.player_handedness = None
 
     def set_player_name(self):
-        # TODO: Define set_player_name() method
-        pass
+        self.player_name = self.pitcher_block.select(".starting-lineups__pitcher-name")[
+            0
+        ].a.get_text()
 
     def get_player_name(self):
         return self.player_name
 
     def set_player_id(self):
-        # TODO: Define set_player_id() method
-        pass
+        self.player_id = (
+            self.pitcher_block.select(".starting-lineups__pitcher-name")[int(self.home_team)]
+            .a["href"]
+            .split("-")[2]
+        )
 
     def get_player_id(self):
         return self.player_id
+
+    def set_player_handedness(self):
+        self.player_handedness = (
+            self.pitcher_block.select(".starting-lineups__pitcher-pitch-hand")[int(self.home_team)]
+            .get_text()
+            .strip()
+        )
+
+    def get_player_handedness(self):
+        return self.player_handedness
 
 
 class Batter:

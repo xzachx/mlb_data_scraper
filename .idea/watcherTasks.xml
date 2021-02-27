@@ -14,7 +14,7 @@
         <array />
       </option>
       <option name="outputFromStdout" value="false" />
-      <option name="program" value="/opt/anaconda3/bin/black" />
+      <option name="program" value="$USER_HOME$/Anaconda3/envs/untitled/Scripts/black.exe" />
       <option name="runOnExternalChanges" value="true" />
       <option name="scopeName" value="Project Files" />
       <option name="trackOnlyRoot" value="false" />
