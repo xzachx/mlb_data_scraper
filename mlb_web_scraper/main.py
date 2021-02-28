@@ -4,22 +4,28 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def get_page(url):
-    """Downloads page from specified url"""
-    page = requests.get(url)
-    return page
+class Page:
+    """Class containing data for full page"""
 
+    def __init__(self, url):
+        self.url = url
+        self.page = None
+        self.content = None
+        self.games = []
 
-def get_page_content(page):
-    """Extracts markup code from downloaded page"""
-    content = BeautifulSoup(page.content, "html.parser")
-    return content
+    def download_page(self):
+        """Downloads page from specified url"""
+        self.page = requests.get(self.url)
 
+    def set_page_content(self):
+        """Extracts markup code from downloaded page"""
+        self.content = BeautifulSoup(self.page.content, "html.parser")
 
-def get_games(content):
-    """Return a list of games and all of their data"""
-    games = content.find_all(class_="starting-lineups__matchup")
-    return games
+    def get_games(self):
+        """Return a list of games and all of their data"""
+        self.games = [
+            Game(game) for game in self.content.find_all(class_="starting-lineups__matchup")
+        ]
 
 
 class Game:
@@ -46,7 +52,7 @@ class Team:
         self.team_name = None
         self.team_tricode = None
         self.pitcher = None
-        self.batters = None
+        self.batters = []
 
     def set_team_name(self):
         self.team_name = self.team_block.a.get_text().strip()
@@ -117,17 +123,28 @@ class Batter:
         self.player_name = None
         self.player_id = None
         self.player_handedness = None
+        self.player_position = None
 
     def set_player_name(self):
-        # TODO: Define set_player_name() method
-        pass
+        self.player_name = " ".join(self.batter_block.get_text().split()[:-2])
 
     def get_player_name(self):
         return self.player_name
 
     def set_player_id(self):
-        # TODO: Define set_player_id() method
-        pass
+        self.player_id = self.batter_block.a["href"].split("-")[-1]
 
     def get_player_id(self):
         return self.player_id
+
+    def set_player_handedness(self):
+        self.player_handedness = self.batter_block.get_text().split()[-2].strip("()")
+
+    def get_player_handedness(self):
+        return self.player_handedness
+
+    def set_player_position(self):
+        self.player_position = self.batter_block.get_text().split()[-1]
+
+    def get_player_position(self):
+        return self.player_position
