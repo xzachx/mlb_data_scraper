@@ -72,8 +72,16 @@ class Team:
         )
 
     def get_batters(self):
-        # TODO: Define get_batters() method
-        pass
+        if self.home_team:
+            lineup = self.team_block.find(
+                class_="starting-lineups__team starting-lineups__team--home"
+            ).select(".starting-lineups__player")
+        else:
+            lineup = self.team_block.find(
+                class_="starting-lineups__team starting-lineups__team--away"
+            ).select(".starting-lineups__player")
+
+        self.batters = [Batter(batter) for batter in lineup]
 
 
 class Pitcher:
