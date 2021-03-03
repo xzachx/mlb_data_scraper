@@ -21,7 +21,7 @@ class Page:
         """Extracts markup code from downloaded page"""
         self.content = BeautifulSoup(self.page.content, "html.parser")
 
-    def get_games(self):
+    def set_games(self):
         """Return a list of games and all of their data"""
         self.games = [
             Game(game) for game in self.content.find_all(class_="starting-lineups__matchup")
@@ -57,16 +57,10 @@ class Team:
     def set_team_name(self):
         self.team_name = self.team_block.a.get_text().strip()
 
-    def get_team_name(self):
-        return self.team_name
-
     def set_team_tricode(self):
         self.team_tricode = self.team_block.a.get_text().strip()
 
-    def get_team_tricode(self):
-        return self.team_tricode
-
-    def get_pitcher(self):
+    def set_pitcher(self):
         self.pitcher = Pitcher(
             self.team_block.select(".starting-lineups__pitchers")[0], self.home_team
         )
@@ -82,12 +76,6 @@ class Team:
             ).select(".starting-lineups__player")
 
         self.batters = [Batter(batter) for batter in lineup]
-
-    def get_batter(self, position=None):
-        if type(position) == int:
-            return self.batters[position - 1]
-        else:
-            return self.batters
 
 
 class Pitcher:
@@ -105,9 +93,6 @@ class Pitcher:
             0
         ].a.get_text()
 
-    def get_player_name(self):
-        return self.player_name
-
     def set_player_id(self):
         self.player_id = (
             self.pitcher_block.select(".starting-lineups__pitcher-name")[int(self.home_team)]
@@ -115,18 +100,12 @@ class Pitcher:
             .split("-")[2]
         )
 
-    def get_player_id(self):
-        return self.player_id
-
     def set_player_handedness(self):
         self.player_handedness = (
             self.pitcher_block.select(".starting-lineups__pitcher-pitch-hand")[int(self.home_team)]
             .get_text()
             .strip()
         )
-
-    def get_player_handedness(self):
-        return self.player_handedness
 
 
 class Batter:
@@ -142,23 +121,11 @@ class Batter:
     def set_player_name(self):
         self.player_name = " ".join(self.batter_block.get_text().split()[:-2])
 
-    def get_player_name(self):
-        return self.player_name
-
     def set_player_id(self):
         self.player_id = self.batter_block.a["href"].split("-")[-1]
-
-    def get_player_id(self):
-        return self.player_id
 
     def set_player_handedness(self):
         self.player_handedness = self.batter_block.get_text().split()[-2].strip("()")
 
-    def get_player_handedness(self):
-        return self.player_handedness
-
     def set_player_position(self):
         self.player_position = self.batter_block.get_text().split()[-1]
-
-    def get_player_position(self):
-        return self.player_position
