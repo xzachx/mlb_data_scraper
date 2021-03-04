@@ -6,7 +6,7 @@ from game import Game
 class Page:
     """Class containing data for full page"""
 
-    def __init__(self, url):
+    def __init__(self, url=None):
         self.url = url
         self.page = None
         self.content = None
