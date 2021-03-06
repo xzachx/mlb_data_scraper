@@ -1,4 +1,4 @@
-from page import Page
+from mlb_data_scraper.page import Page
 
 
 class Scraper(object):
@@ -11,4 +11,4 @@ class Scraper(object):
         pass
 
     def run(self):
-        pass
+        print("Hello World!")

@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from game import Game
+from mlb_data_scraper.game import Game
 
 
 class Page:

@@ -1,4 +1,4 @@
-from team import Team
+from mlb_data_scraper.team import Team
 
 
 class Game:

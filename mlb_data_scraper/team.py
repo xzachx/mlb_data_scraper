@@ -1,4 +1,4 @@
-from pitcher import Pitcher
+from mlb_data_scraper.pitcher import Pitcher
 
 
 class Team:
