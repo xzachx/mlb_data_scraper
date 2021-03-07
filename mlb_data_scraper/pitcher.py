@@ -1,5 +1,3 @@
-
-
 class Pitcher:
     """Class containing starting pitcher data"""
 
@@ -13,7 +11,7 @@ class Pitcher:
 
     def set_player_name(self):
         self.player_name = self.pitcher_block.select(".starting-lineups__pitcher-name")[
-            0
+            int(self.home_team)
         ].a.get_text()
 
     def set_player_id(self):

@@ -4,17 +4,19 @@ from mlb_data_scraper.team import Team
 class Game:
     """Class containing data for an individual game"""
 
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, game_data):
+        self.game_data = game_data
         self.home_team = None
         self.away_team = None
         self.set_vars()
 
     def set_teams(self):
         """Extract code blocks for home and away teams"""
-        teams = self.data.select(".starting-lineups__team-names")[0]
-        self.home_team = Team(teams.select(".starting-lineups__team-name--home")[0], True)
-        self.away_team = Team(teams.select(".starting-lineups__team-name--away")[0], False)
+        # teams = self.game_data.select(".starting-lineups__team-names")[0]
+        # self.home_team = Team(teams.select(".starting-lineups__team-name--home")[0], True)
+        # self.away_team = Team(teams.select(".starting-lineups__team-name--away")[0], False)
+        self.home_team = Team(self.game_data, True)
+        self.away_team = Team(self.game_data, False)
 
     def set_vars(self):
         self.set_teams()
