@@ -1,4 +1,5 @@
 import argparse
+import datetime
 from mlb_data_scraper.page import Page
 
 
@@ -8,6 +9,7 @@ class Scraper(object):
     def __init__(self):
         self.args = None
         self.parse_args()
+        self.page = None
 
     def parse_args(self):
         """
@@ -23,14 +25,13 @@ class Scraper(object):
         #     "--version", action="version", version="%(prog)s {version}".format(version=__version__)
         # )
         parser.add_argument(
-            "--date",
-            required=False,
-            help='Game date if not today (YYYY-MM-DD format)',
+            "--date", required=False, help="Game date if not today (YYYY-MM-DD format)",
         )
         self.args = parser.parse_args()
 
     def run(self):
-        if self.args.date:
-            print(f"Running scraper for {self.args.date}")
-        else:
-            print("No date specified, running scraper for today's lineups")
+        self.page = Page(date=self.args.date)
+        self.page.get_page()
+
+        for game in self.page.get_games():
+            print(f"{game.away_team.team_name} ({game.away_team.team_tricode}) AT {game.home_team.team_name} ({game.home_team.team_tricode})")

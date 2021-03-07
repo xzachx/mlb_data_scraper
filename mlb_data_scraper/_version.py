@@ -2,4 +2,4 @@
 # -*- coding: utf-8 -*-
 """Private version variable for MLB Data Scraper"""
 
-__version__ = "2021.03.dev1"
+__version__ = "2021.3.dev1"

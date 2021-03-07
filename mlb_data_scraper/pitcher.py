@@ -9,6 +9,7 @@ class Pitcher:
         self.player_name = None
         self.player_id = None
         self.player_handedness = None
+        self.set_vars()
 
     def set_player_name(self):
         self.player_name = self.pitcher_block.select(".starting-lineups__pitcher-name")[
@@ -28,3 +29,8 @@ class Pitcher:
             .get_text()
             .strip()
         )
+
+    def set_vars(self):
+        self.set_player_name()
+        self.set_player_id()
+        self.set_player_handedness()

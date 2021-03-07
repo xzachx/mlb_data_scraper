@@ -31,7 +31,9 @@ DEPS_SEARCH_URIS = ()
 
 # Entry Point -----------------------------------------------------------------
 
-ENTRY_POINTS = {"console_scripts": ["mlb_data_scraper = mlb_data_scraper.mlb_data_scraper:run_mlb_data_scraper"]}
+ENTRY_POINTS = {
+    "console_scripts": ["mlb_data_scraper = mlb_data_scraper.mlb_data_scraper:run_mlb_data_scraper"]
+}
 
 if __name__ == "__main__":
     setup(

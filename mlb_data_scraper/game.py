@@ -8,9 +8,13 @@ class Game:
         self.data = data
         self.home_team = None
         self.away_team = None
+        self.set_vars()
 
     def set_teams(self):
         """Extract code blocks for home and away teams"""
         teams = self.data.select(".starting-lineups__team-names")[0]
         self.home_team = Team(teams.select(".starting-lineups__team-name--home")[0], True)
         self.away_team = Team(teams.select(".starting-lineups__team-name--away")[0], False)
+
+    def set_vars(self):
+        self.set_teams()
