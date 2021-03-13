@@ -15,7 +15,7 @@ class Page:
         self.games = []
 
     def set_url(self):
-        base_url = "https://www.mlb.com/starting-lineups/"
+        base_url = "https://www.mlb.com/en/starting-lineups/"
         if self.url is not None:
             return
         elif self.date is not None:
