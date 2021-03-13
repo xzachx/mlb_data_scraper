@@ -1,13 +1,18 @@
 class Pitcher:
     """Class containing starting pitcher data"""
 
-    def __init__(self, pitcher_block, home_team: bool):
+    def __init__(self, pitcher_block=None, home_team=None):
         self.pitcher_block = pitcher_block
         self.home_team = home_team
         self.player_name = None
         self.player_id = None
         self.player_handedness = None
-        self.set_vars()
+
+    def set_pitcher_block(self, pitcher_block):
+        self.pitcher_block = pitcher_block
+
+    def set_home_team(self, home_team: bool):
+        self.home_team = home_team
 
     def set_player_name(self):
         self.player_name = self.pitcher_block.select(".starting-lineups__pitcher-name")[

@@ -14,7 +14,9 @@ class Batter:
         self.player_id = None
         self.player_handedness = None
         self.player_position = None
-        self.set_vars()
+
+    def set_batter_block(self, batter_block):
+        self.batter_block = batter_block
 
     def set_player_name(self):
         self.player_name = " ".join(self.batter_block.get_text().split()[:-2])

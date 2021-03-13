@@ -39,12 +39,17 @@ class Page:
 
     def set_games(self):
         """Return a list of games and all of their data"""
-        self.games = [
-            Game(game) for game in self.content.find_all(class_="starting-lineups__matchup")
-        ]
-
-    def get_games(self):
-        return self.games
+        if (
+            self.content.find_all(class_="starting-lineups__matchup")[0].get_text()
+            != "There are no games scheduled for the date selected."
+        ):
+            self.games = [
+                Game(game) for game in self.content.find_all(class_="starting-lineups__matchup")
+            ]
+            for g in self.games:
+                g.set_vars()
+        else:
+            print("No games scheduled for this date")
 
     def get_page(self):
         self.set_url()

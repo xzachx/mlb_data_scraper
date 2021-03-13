@@ -12,19 +12,19 @@ class Team:
         self.home_team = home_team
         self.team_name = None
         self.team_tricode = None
-        self.pitcher = None
-        self.batters = [None] * 9
-        self.set_vars()
+        self.pitcher = Pitcher()
+        self.batters = [Batter(None, i) for i in range(1,10)]
 
     def set_team_block(self):
-        if self.home_team:
-            self.team_block = self.game_data.select(".starting-lineups__team-names")[0].select(
-                ".starting-lineups__team-name--home"
-            )[0]
-        else:
-            self.team_block = self.game_data.select(".starting-lineups__team-names")[0].select(
-                ".starting-lineups__team-name--away"
-            )[0]
+        if self.game_data.select(".starting-lineups__team-names"):
+            if self.home_team:
+                self.team_block = self.game_data.select(".starting-lineups__team-names")[0].select(
+                    ".starting-lineups__team-name--home"
+                )[0]
+            else:
+                self.team_block = self.game_data.select(".starting-lineups__team-names")[0].select(
+                    ".starting-lineups__team-name--away"
+                )[0]
 
     def set_pitcher_block(self):
         self.pitcher_block = self.game_data.select(".starting-lineups__pitchers")[0]
@@ -36,7 +36,9 @@ class Team:
         self.team_tricode = self.team_block.a["data-tri-code"]
 
     def set_pitcher(self):
-        self.pitcher = Pitcher(self.pitcher_block, self.home_team)
+        self.pitcher.set_pitcher_block(self.pitcher_block)
+        self.pitcher.set_home_team(self.home_team)
+        self.pitcher.set_vars()
 
     def set_batters(self):
         if self.home_team:
@@ -50,12 +52,14 @@ class Team:
 
         if lineup:
             for i in range(len(lineup)):
-                self.batters[i] = Batter(lineup[i], i + 1)
+                self.batters[i].set_batter_block(lineup[i])
+                self.batters[i].set_vars()
 
     def set_vars(self):
         self.set_team_block()
-        self.set_pitcher_block()
-        self.set_team_name()
-        self.set_team_tricode()
-        self.set_pitcher()
-        self.set_batters()
+        if self.team_block:
+            self.set_pitcher_block()
+            self.set_team_name()
+            self.set_team_tricode()
+            self.set_pitcher()
+            self.set_batters()

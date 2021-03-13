@@ -33,10 +33,12 @@ class Scraper(object):
         self.page = Page(date=self.args.date)
         self.page.get_page()
 
-        for game in self.page.get_games():
+        for game in self.page.games:
             print(f"---------------------------------------------------------")
             print(f"{game.away_team.team_name} @ {game.home_team.team_name}")
             print(f"{game.park} - {game.game_time}")
+            if game.ppd:
+                print(f"############################   POSTPONED ####################################")
             print(f"---------------------------------------------------------")
             print(f"{game.away_team.team_tricode} - {game.away_team.team_name}")
             if game.away_team.batters:
