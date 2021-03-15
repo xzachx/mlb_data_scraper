@@ -7,6 +7,7 @@ class Pitcher:
         self.player_name = None
         self.player_id = None
         self.player_handedness = None
+        self.pitcher_df = None
 
     def set_pitcher_block(self, pitcher_block):
         self.pitcher_block = pitcher_block
@@ -32,6 +33,20 @@ class Pitcher:
             .get_text()
             .strip()
         )
+
+    def set_batter_df(self):
+        if self.player_position != "P":
+            batter_data = {
+                "mlb_pitcher_name": self.player_name,
+                "mlb_pitcher_id": self.player_id,
+                "team_tricode": "",
+                "game_time": "",
+                "handedness": self.player_handedness,
+                "park": "",
+                "home_team": "",
+                "mlb_opp_team_tricode": "",
+            }
+            self.batter_df = pd.Series(batter_data).to_frame()
 
     def set_vars(self):
         self.set_player_name()

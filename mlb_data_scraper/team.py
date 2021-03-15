@@ -14,6 +14,8 @@ class Team:
         self.team_tricode = None
         self.pitcher = Pitcher()
         self.batters = [Batter(None, i) for i in range(1,10)]
+        self.pitcher_df = None
+        self.batter_df = None
 
     def set_team_block(self):
         if self.game_data.select(".starting-lineups__team-names"):

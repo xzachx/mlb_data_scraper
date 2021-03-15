@@ -10,6 +10,8 @@ class Scraper(object):
         self.args = None
         self.parse_args()
         self.page = None
+        self.pitcher_df = None
+        self.batter_df = None
 
     def parse_args(self):
         """
@@ -40,15 +42,15 @@ class Scraper(object):
             if game.ppd:
                 print(f"############################   POSTPONED ####################################")
             print(f"---------------------------------------------------------")
-            print(f"{game.away_team.team_tricode} - {game.away_team.team_name}")
-            if game.away_team.batters:
-                for batter in game.away_team.batters:
-                    print(
-                        f"{batter.batting_num}, {batter.player_name}, {batter.player_id}, {batter.player_handedness}, {batter.player_position}"
-                    )
-            print(f"{game.home_team.team_tricode} - {game.home_team.team_name}")
-            if game.home_team.batters:
-                for batter in game.home_team.batters:
-                    print(
-                        f"{batter.batting_num}, {batter.player_name}, {batter.player_id}, {batter.player_handedness}, {batter.player_position}"
-                    )
+            # print(f"{game.away_team.team_tricode} - {game.away_team.team_name}")
+            # if game.away_team.batters:
+            #     for batter in game.away_team.batters:
+            #         print(
+            #             f"{batter.batting_num}, {batter.player_name}, {batter.player_id}, {batter.player_handedness}, {batter.player_position}"
+            #         )
+            # print(f"{game.home_team.team_tricode} - {game.home_team.team_name}")
+            # if game.home_team.batters:
+            #     for batter in game.home_team.batters:
+            #         print(
+            #             f"{batter.batting_num}, {batter.player_name}, {batter.player_id}, {batter.player_handedness}, {batter.player_position}"
+            #         )

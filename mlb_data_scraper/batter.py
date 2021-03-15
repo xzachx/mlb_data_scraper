@@ -14,6 +14,7 @@ class Batter:
         self.player_id = None
         self.player_handedness = None
         self.player_position = None
+        self.batter_df = None
 
     def set_batter_block(self, batter_block):
         self.batter_block = batter_block
@@ -30,8 +31,27 @@ class Batter:
     def set_player_position(self):
         self.player_position = self.batter_block.get_text().split()[-1]
 
+    def set_batter_df(self):
+        if self.player_position != "P":
+            batter_data = {
+                "mlb_batter_name": self.player_name,
+                "mlb_batter_id": self.player_id,
+                "team_tricode": "",
+                "game_time": "",
+                "batting_num": self.batting_num,
+                "position": self.player_position,
+                "handedness": self.player_handedness,
+                "park": "",
+                "home_team": "",
+                "mlb_opp_pitcher_name": "",
+                "mlb_opp_pitcher_id": "",
+                "mlb_opp_pitcher_handedness": "",
+            }
+            self.batter_df = pd.Series(batter_data).to_frame()
+
     def set_vars(self):
         self.set_player_name()
         self.set_player_id()
         self.set_player_handedness()
         self.set_player_position()
+        self.set_batter_df()
